@@ -1,2 +1,20 @@
-package dev.prakash.productservicettsevening.dtos;public class ProductDto {
+package dev.prakash.productservicettsevening.dtos;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class ProductDto {
+    private String title;
+
+    private String description;
+    private double price;
+    private String image;
+    private String category;
+
+
+
 }
