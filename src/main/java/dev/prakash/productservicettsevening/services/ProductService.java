@@ -1,16 +1,25 @@
 package dev.prakash.productservicettsevening.services;
 
 import dev.prakash.productservicettsevening.dtos.ProductDto;
+import dev.prakash.productservicettsevening.models.Category;
+import dev.prakash.productservicettsevening.models.Product;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 public interface ProductService {
-    String getAllProducts();
+    Product[] getAllProducts();
 
-    String getSingleProduct(Long productId);
+    Product getSingleProduct(Long productId);
 
-    String addProduct( ProductDto productDto);
 
-    String updateProduct( Long productId,  ProductDto productDto);
+    Product addProduct( ProductDto productDto);
 
-    String deleteProduct(Long productId);
+    /*
+    * Product Object has only those fields filled which needs to be updated
+    * Everything else is null
+    * */
+    Product updateProduct( Long productId,  Product product);
+
+    boolean deleteProduct(Long productId);
 }
