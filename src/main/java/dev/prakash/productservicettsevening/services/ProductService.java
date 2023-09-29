@@ -6,11 +6,12 @@ import dev.prakash.productservicettsevening.models.Product;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
     Product[] getAllProducts();
 
-    Product getSingleProduct(Long productId);
+     Optional<Product> getSingleProduct(Long productId);
 
 
     Product addProduct( ProductDto productDto);
@@ -20,6 +21,7 @@ public interface ProductService {
     * Everything else is null
     * */
     Product updateProduct( Long productId,  Product product);
+    Product replaceProduct( Long productId,  Product product);
 
     boolean deleteProduct(Long productId);
 }
