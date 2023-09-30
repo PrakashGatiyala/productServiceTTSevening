@@ -108,6 +108,23 @@ public class FakeStoreClient {
        );
         return Optional.ofNullable(fakeStoreProductDtoResponseEntity.getBody());
     }
+    public String[] getAllCategories(){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<String[] > listOfCategories =
+                restTemplate.getForEntity("https://fakestoreapi.com/products/categories", String[].class);
+
+        return listOfCategories.getBody();
+    }
+
+    public FakeStoreProductDto[] getProductsInCategory(String categoryName){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto[]> listOfProducts =
+                restTemplate.getForEntity("https://fakestoreapi.com/products/category/{categoryName}",
+                        FakeStoreProductDto[].class, categoryName);
+
+        return listOfProducts.getBody();
+    }
+
 
 
 }
