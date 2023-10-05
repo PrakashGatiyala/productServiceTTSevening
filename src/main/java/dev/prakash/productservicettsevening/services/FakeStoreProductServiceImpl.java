@@ -5,6 +5,7 @@ import dev.prakash.productservicettsevening.Client.fakestoreapi.FakeStoreProduct
 import dev.prakash.productservicettsevening.dtos.ProductDto;
 import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
+import dev.prakash.productservicettsevening.repositories.ProductRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,11 @@ import java.util.*;
 public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreClient fakeStoreClient;
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient) {
+    private ProductRepository productRepository;
+    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient, ProductRepository productRepository) {
         this.restTemplateBuilder = restTemplateBuilder;
         this.fakeStoreClient = fakeStoreClient;
+        this.productRepository = productRepository;
     }
 
     private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto productDto){
@@ -63,8 +66,18 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(ProductDto productDto) {
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreClient.addProduct(productDto);
-        return convertFakeStoreProductDtoToProduct(fakeStoreProductDto);
+//        FakeStoreProductDto fakeStoreProductDto = fakeStoreClient.addProduct(productDto);
+        Product product = new Product();
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+//        Category category = new Category();
+//        category.setName(productDto.getCategory());
+//        product.setCategory(category);
+        product.setImageUrl(productDto.getImage());
+        product = productRepository.save(product);
+
+        return product;
     }
 
     @Override
