@@ -20,4 +20,5 @@ public class Product extends BaseModel {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE })
     private Category category;
     private String imageUrl;
+    private boolean isPublic;
 }

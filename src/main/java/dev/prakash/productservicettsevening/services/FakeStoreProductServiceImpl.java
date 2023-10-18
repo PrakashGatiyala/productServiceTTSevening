@@ -7,15 +7,7 @@ import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.repositories.ProductRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RequestCallback;
-import org.springframework.web.client.ResponseExtractor;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -43,13 +35,13 @@ public class FakeStoreProductServiceImpl implements ProductService {
         return product;
     }
     @Override
-    public Product[] getAllProducts() {
+    public List<Product> getAllProducts() {
         FakeStoreProductDto[] fakeStoreProductDtos = fakeStoreClient.getAllProducts();
         Product[] answer = new Product[fakeStoreProductDtos.length];
         for(FakeStoreProductDto productDto:  fakeStoreProductDtos){
             answer[productDto.getId().intValue()-1] = convertFakeStoreProductDtoToProduct(productDto);
         }
-        return answer;
+        return List.of(answer);
     }
     /*
    * Return a Product object with all the details of the fetched product.

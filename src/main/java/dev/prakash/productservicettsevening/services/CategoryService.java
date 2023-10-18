@@ -2,11 +2,11 @@ package dev.prakash.productservicettsevening.services;
 
 import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 public interface CategoryService {
-    Category[] getAllCategories();
+    List<Category> getAllCategories();
 
-    Product[] getProductsInCategory(String categoryName);
+    List<Product> getProductsInCategory(String categoryName);
 }

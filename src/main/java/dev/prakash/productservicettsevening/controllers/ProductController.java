@@ -1,28 +1,30 @@
 package dev.prakash.productservicettsevening.controllers;
 
-import dev.prakash.productservicettsevening.dtos.ErrorResponseDto;
 import dev.prakash.productservicettsevening.dtos.ProductDto;
 import dev.prakash.productservicettsevening.exceptions.NotFoundException;
 import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
+import dev.prakash.productservicettsevening.services.FakeStoreProductServiceImpl;
 import dev.prakash.productservicettsevening.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("fakeStoreProductServiceImpl") ProductService productService) {
         this.productService = productService;
     }
     @GetMapping()
-    public Product[] getAllProducts() {
+    public List<Product> getAllProducts() {
 
         return productService.getAllProducts();
     }

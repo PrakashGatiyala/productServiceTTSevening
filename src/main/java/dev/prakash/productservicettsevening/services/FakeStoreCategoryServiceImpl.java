@@ -6,6 +6,8 @@ import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FakeStoreCategoryServiceImpl implements CategoryService{
     FakeStoreClient fakeStoreClient;
@@ -13,7 +15,7 @@ public class FakeStoreCategoryServiceImpl implements CategoryService{
         this.fakeStoreClient = fakeStoreClient;
     }
     @Override
-    public Category[] getAllCategories() {
+    public List<Category> getAllCategories() {
           String[] listOfCategories = fakeStoreClient.getAllCategories();
             Category[] categories = new Category[listOfCategories.length];
             for(int i = 0; i < listOfCategories.length; i++){
@@ -21,11 +23,11 @@ public class FakeStoreCategoryServiceImpl implements CategoryService{
                 categories[i].setName(listOfCategories[i]);
             }
 
-        return categories;
+        return List.of(categories);
     }
 
     @Override
-    public Product[] getProductsInCategory(String categoryName) {
+    public List<Product> getProductsInCategory(String categoryName) {
         FakeStoreProductDto[] fakeStoreProductDtos = fakeStoreClient.getProductsInCategory(categoryName);
         Product[] answer = new Product[fakeStoreProductDtos.length];
         for(int i=0; i< fakeStoreProductDtos.length; i++){
@@ -39,6 +41,6 @@ public class FakeStoreCategoryServiceImpl implements CategoryService{
             category.setName(fakeStoreProductDtos[i].getCategory());
             answer[i].setCategory(category);
         }
-        return answer;
+        return List.of(answer);
     }
 }
