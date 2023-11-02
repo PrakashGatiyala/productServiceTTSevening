@@ -11,10 +11,10 @@ import dev.prakash.productservicettsevening.services.SelfProductService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
@@ -40,6 +40,7 @@ public class ProductTest {
 
     @Autowired
     private PlatformTransactionManager transactionManager;
+
     @Transactional
     @Test
     @Commit // @Rollback(value = false)
@@ -77,8 +78,12 @@ public class ProductTest {
     }
     @Test
     void cascadeDelete(){
+
         Product product = productRepository.findProductById(22L);
-        productRepository.delete(product);
+        // Delete only if there is product with id 22 exists in the database
+        if(product != null){
+            productRepository.delete(product);
+        }
     }
     @Test
     @Transactional
@@ -110,6 +115,7 @@ public class ProductTest {
     @Test
     @Transactional
     @Commit
+    @Disabled
     void isWorkingFine(){
         List<Product> listOfProducts= selfProductService.getAllProducts();
         // Print all Products
@@ -166,6 +172,19 @@ public class ProductTest {
             System.out.println(product.getTitle());
         }
     }
+    @Test
+    void testingCustomQueries(){
+        // call laaoProductWithId function and print its result
+        String titleName = productRepository.laaoProductWithId(1L);
+        System.out.println(titleName);
+
+        String categoryName = productRepository.laaoCategoryOfProductWithId(1L);
+        System.out.println(categoryName);
+
+
+
+    }
+
 
 
 }

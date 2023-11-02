@@ -25,6 +25,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.category.name = ?1")
     List<Product> findProductsByName(String name);
 
+    @Query(value = "select p.title from product p where p.id = :id", nativeQuery = true)
+    String laaoProductWithId(Long id);
+    // This query will give us create_at, last_updated_at, title, description, price, image_url, category_id, id
+
+    // write a sqlnative query to get category of product using productId just like above query
+    @Query(value = "select c.name from category c inner join product p on c.id = p.category_id where p.id = ?1", nativeQuery = true)
+    String laaoCategoryOfProductWithId(Long id);
+
+
 
 
 }

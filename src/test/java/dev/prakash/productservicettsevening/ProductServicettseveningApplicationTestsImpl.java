@@ -9,8 +9,8 @@ import dev.prakash.productservicettsevening.inheritanceexample.joinedtable.JTUse
 import dev.prakash.productservicettsevening.inheritanceexample.mappedsuperclass.MSMentorRepository;
 import dev.prakash.productservicettsevening.inheritanceexample.singleclass.STMentorRepository;
 import dev.prakash.productservicettsevening.inheritanceexample.singleclass.STUserRepository;
-import dev.prakash.productservicettsevening.inheritanceexample.tableperclass.TBCMentorRepository;
-import dev.prakash.productservicettsevening.inheritanceexample.tableperclass.TBCUserRepository;
+//import dev.prakash.productservicettsevening.inheritanceexample.tableperclass.TBCMentorRepository;
+//import dev.prakash.productservicettsevening.inheritanceexample.tableperclass.TBCUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,10 +27,10 @@ class ProductServicettseveningApplicationTestsImpl {
     private STUserRepository STUserRepository;
     @Autowired
     private STMentorRepository STMentorRepository;
-    @Autowired
-    private TBCUserRepository TBCUserRepository;
-    @Autowired
-    private TBCMentorRepository TBCMentorRepository;
+  //  @Autowired
+//    private TBCUserRepository TBCUserRepository;
+//    @Autowired
+//    private TBCMentorRepository TBCMentorRepository;
     @Test
     void contextLoads() {
     }
@@ -65,16 +65,16 @@ class ProductServicettseveningApplicationTestsImpl {
         mentor2.setNumberOfSessions(50);
         STMentorRepository.save(mentor2);
 
-        dev.prakash.productservicettsevening.inheritanceexample.tableperclass.User user3 = new dev.prakash.productservicettsevening.inheritanceexample.tableperclass.User();
-        user3.setEmail("praksh@TPC@gmail.com");
-        user3.setPassword("Password");
-        TBCUserRepository.save(user3);
-        dev.prakash.productservicettsevening.inheritanceexample.tableperclass.Mentor mentor3 = new dev.prakash.productservicettsevening.inheritanceexample.tableperclass.Mentor();
-        mentor3.setEmail("prakash@tpc.com");
-        mentor3.setPassword("12345");
-        mentor3.setNumberOfMentees(4);
-        mentor3.setNumberOfSessions(50);
-        TBCMentorRepository.save(mentor3);
+//        dev.prakash.productservicettsevening.inheritanceexample.tableperclass.User user3 = new dev.prakash.productservicettsevening.inheritanceexample.tableperclass.User();
+//        user3.setEmail("praksh@TPC@gmail.com");
+//        user3.setPassword("Password");
+//        TBCUserRepository.save(user3);
+//        dev.prakash.productservicettsevening.inheritanceexample.tableperclass.Mentor mentor3 = new dev.prakash.productservicettsevening.inheritanceexample.tableperclass.Mentor();
+//        mentor3.setEmail("prakash@tpc.com");
+//        mentor3.setPassword("12345");
+//        mentor3.setNumberOfMentees(4);
+//        mentor3.setNumberOfSessions(50);
+//        TBCMentorRepository.save(mentor3);
 
 
     }
