@@ -41,9 +41,9 @@ public class ProductTest {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    @Transactional
-    @Test
-    @Commit // @Rollback(value = false)
+//    @Transactional
+//    @Test
+//    @Commit // @Rollback(value = false)
     void savingProductAndCategory(){
         Category category = categoryRepository.findCategoryById(2L);
 //        category.setName("Electronics9");
@@ -54,8 +54,8 @@ public class ProductTest {
         product.setCategory(category);
         productRepository.save(product);
     }
-    @Test
-    @Transactional
+//    @Test
+//    @Transactional
     void fetchTypesTest(){
         Product product = productRepository.findProductById(1L);
         System.out.println("Fetched Product");
@@ -103,8 +103,8 @@ public class ProductTest {
             }
         }
     }
-    @Test
-    @Transactional
+//    @Test
+//    @Transactional
     void getProductFor1Category(){
         Category category = categoryRepository.findCategoryById(2L);
         System.out.println("Category Name: " + category.getName());

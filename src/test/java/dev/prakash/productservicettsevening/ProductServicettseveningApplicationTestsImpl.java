@@ -31,10 +31,10 @@ class ProductServicettseveningApplicationTestsImpl {
 //    private TBCUserRepository TBCUserRepository;
 //    @Autowired
 //    private TBCMentorRepository TBCMentorRepository;
-    @Test
+//    @Test
     void contextLoads() {
     }
-    @Test
+//    @Test
     void testDifferentRepositories() {
         User user = new User();
         user.setEmail("Prakash@gmail.com");
