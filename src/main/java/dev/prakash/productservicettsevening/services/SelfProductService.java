@@ -4,12 +4,16 @@ import dev.prakash.productservicettsevening.dtos.ProductDto;
 import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.repositories.ProductRepository;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Primary
 public class SelfProductService implements ProductService {
 
     private ProductRepository productRepository;
@@ -19,6 +23,15 @@ public class SelfProductService implements ProductService {
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Page<Product> getProducts(int numberOfProducts, int offset){
+        // productRepository.executeQuery(select * from producst limit numberOfProducsts, offset offset)
+        Page<Product> products = productRepository.findAll(
+                PageRequest.of( offset/numberOfProducts,  numberOfProducts)
+        );
+        return products;
     }
 
     @Override
@@ -68,4 +81,5 @@ public class SelfProductService implements ProductService {
         }
         return false;
     }
+
 }

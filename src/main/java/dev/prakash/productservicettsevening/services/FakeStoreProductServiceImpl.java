@@ -7,6 +7,7 @@ import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.repositories.ProductRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,10 @@ public class FakeStoreProductServiceImpl implements ProductService {
             answer[productDto.getId().intValue()-1] = convertFakeStoreProductDtoToProduct(productDto);
         }
         return List.of(answer);
+    }
+    @Override
+    public Page<Product> getProducts(int numberOfProducts, int offset){
+        return null;
     }
     /*
    * Return a Product object with all the details of the fetched product.

@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("products/")
 public class CategoryController {
     private CategoryService categoryService;
-    public CategoryController(@Qualifier("fakeStoreCategoryServiceImpl") CategoryService categoryService) {
+    public CategoryController( CategoryService categoryService) {
         this.categoryService = categoryService;
     }
     @GetMapping("/categories")

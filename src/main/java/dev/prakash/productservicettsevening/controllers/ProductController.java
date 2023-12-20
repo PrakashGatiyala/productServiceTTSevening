@@ -4,6 +4,7 @@ import dev.prakash.productservicettsevening.Client.authenticationclient.Authenti
 import dev.prakash.productservicettsevening.Client.authenticationclient.Dtos.Role;
 import dev.prakash.productservicettsevening.Client.authenticationclient.Dtos.SessionStatus;
 import dev.prakash.productservicettsevening.Client.authenticationclient.Dtos.ValidateTokenResponseDto;
+import dev.prakash.productservicettsevening.dtos.GetProductsRequestDto;
 import dev.prakash.productservicettsevening.dtos.ProductDto;
 import dev.prakash.productservicettsevening.exceptions.NotFoundException;
 import dev.prakash.productservicettsevening.models.Category;
@@ -11,6 +12,7 @@ import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.services.FakeStoreProductServiceImpl;
 import dev.prakash.productservicettsevening.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -26,9 +28,13 @@ import java.util.Optional;
 public class ProductController {
     private ProductService productService;
     private AuthenticationClient authenticationClient;
-    public ProductController(@Qualifier("fakeStoreProductServiceImpl") ProductService productService, AuthenticationClient authenticationClient) {
+    public ProductController( ProductService productService, AuthenticationClient authenticationClient) {
         this.productService = productService;
         this.authenticationClient=authenticationClient;
+    }
+    @GetMapping("/paginated")
+    public ResponseEntity<Page<Product>> getProducts(@RequestBody GetProductsRequestDto request){
+        return ResponseEntity.of(Optional.ofNullable(productService.getProducts(request.getNumberOfResults(), request.getOffset())));
     }
     // Make only admin to access all products
     @GetMapping()

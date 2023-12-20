@@ -4,10 +4,12 @@ import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.repositories.CategoryRepository;
 import dev.prakash.productservicettsevening.repositories.ProductRepository;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Primary
 public class SelfCategoryService implements CategoryService {
     private CategoryRepository categoryRepository;
     private ProductRepository productRepository;

@@ -1,6 +1,8 @@
 package dev.prakash.productservicettsevening.repositories;
 
 import dev.prakash.productservicettsevening.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +35,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select c.name from category c inner join product p on c.id = p.category_id where p.id = ?1", nativeQuery = true)
     String laaoCategoryOfProductWithId(Long id);
 
+    Page<Product> findAll(Pageable pageable);
 
 
 
