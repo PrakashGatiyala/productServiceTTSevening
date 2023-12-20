@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetProductsRequestDto {
+    private String query;
     private int numberOfResults;
     private int offset;
 }

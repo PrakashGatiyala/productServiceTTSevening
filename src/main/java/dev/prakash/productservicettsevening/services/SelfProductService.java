@@ -7,6 +7,7 @@ import dev.prakash.productservicettsevening.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,10 +27,14 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
-    public Page<Product> getProducts(int numberOfProducts, int offset){
+    public Page<Product> getProducts(String query, int numberOfProducts, int offset){
         // productRepository.executeQuery(select * from producst limit numberOfProducsts, offset offset)
-        Page<Product> products = productRepository.findAll(
-                PageRequest.of( offset/numberOfProducts,  numberOfProducts)
+//        Page<Product> products = productRepository.findAll(
+//                PageRequest.of( offset/numberOfProducts,  numberOfProducts, Sort.Direction.valueOf("ASC"), query )
+//        );
+        Page<Product> products = productRepository.findAllByTitleContaining(
+                query,
+                PageRequest.of( offset/numberOfProducts,  numberOfProducts )
         );
         return products;
     }

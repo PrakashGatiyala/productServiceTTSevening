@@ -14,7 +14,7 @@ public interface ProductService {
 
 
     Product addProduct( ProductDto productDto);
-    Page<Product> getProducts(int numberOfProducts, int offset);
+    Page<Product> getProducts(String query, int numberOfProducts, int offset);
 
     /*
     * Product Object has only those fields filled which needs to be updated

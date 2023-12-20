@@ -36,6 +36,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     String laaoCategoryOfProductWithId(Long id);
 
     Page<Product> findAll(Pageable pageable);
+    Page<Product> findAllByTitleContaining(String query, Pageable pageable);
 
 
 

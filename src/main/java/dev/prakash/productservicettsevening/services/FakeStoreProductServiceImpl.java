@@ -49,7 +49,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
         return List.of(answer);
     }
     @Override
-    public Page<Product> getProducts(int numberOfProducts, int offset){
+    public Page<Product> getProducts(String query, int numberOfProducts, int offset){
         return null;
     }
     /*

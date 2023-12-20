@@ -34,7 +34,7 @@ public class ProductController {
     }
     @GetMapping("/paginated")
     public ResponseEntity<Page<Product>> getProducts(@RequestBody GetProductsRequestDto request){
-        return ResponseEntity.of(Optional.ofNullable(productService.getProducts(request.getNumberOfResults(), request.getOffset())));
+        return ResponseEntity.of(Optional.ofNullable(productService.getProducts(request.getQuery(), request.getNumberOfResults(), request.getOffset())));
     }
     // Make only admin to access all products
     @GetMapping()
