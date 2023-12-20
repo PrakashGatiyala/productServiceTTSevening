@@ -7,6 +7,7 @@ import dev.prakash.productservicettsevening.models.Category;
 import dev.prakash.productservicettsevening.models.Product;
 import dev.prakash.productservicettsevening.repositories.ProductRepository;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,10 +17,13 @@ public class FakeStoreProductServiceImpl implements ProductService {
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreClient fakeStoreClient;
     private ProductRepository productRepository;
-    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient, ProductRepository productRepository) {
+    private HashMap<Long, Object> fakeStoreProductsMap = new HashMap<>();
+    private RedisTemplate<Long, Object> redisTemplate;
+    public FakeStoreProductServiceImpl(RestTemplateBuilder restTemplateBuilder, FakeStoreClient fakeStoreClient, ProductRepository productRepository, RedisTemplate<Long, Object> redisTemplate) {
         this.restTemplateBuilder = restTemplateBuilder;
         this.fakeStoreClient = fakeStoreClient;
         this.productRepository = productRepository;
+        this.redisTemplate=redisTemplate;
     }
 
     private Product convertFakeStoreProductDtoToProduct(FakeStoreProductDto productDto){
@@ -49,7 +53,14 @@ public class FakeStoreProductServiceImpl implements ProductService {
    * */
     @Override
     public Optional<Product> getSingleProduct(Long productId) {
+        FakeStoreProductDto fakeStoreProductDto=
+                (FakeStoreProductDto) redisTemplate.opsForHash().get(productId,"PRODUCTS");
+        if(fakeStoreProductDto != null) {
+            return Optional.of( convertFakeStoreProductDtoToProduct(fakeStoreProductDto) );
+        }
        FakeStoreProductDto productDto = fakeStoreClient.getSingleProduct(productId).orElse(null);
+//       fakeStoreProductsMap.put(productId, productDto);
+        redisTemplate.opsForHash().put(productId, "PRODUCTS", productDto);
         if(productDto == null){
             return Optional.empty();
         }
