@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,10 @@ import java.util.Optional;
 public class SelfProductService implements ProductService {
 
     private ProductRepository productRepository;
-    public SelfProductService(ProductRepository productRepository) {
+    private RedisTemplate<Long, Object> redisTemplate;
+    public SelfProductService(ProductRepository productRepository, RedisTemplate<Long, Object> redisTemplate) {
         this.productRepository = productRepository;
+        this.redisTemplate=redisTemplate;
     }
     @Override
     public List<Product> getAllProducts() {
@@ -41,8 +44,14 @@ public class SelfProductService implements ProductService {
 
     @Override
     public Optional<Product> getSingleProduct(Long productId) {
+        Product product = (Product) redisTemplate.opsForHash().get(productId,"SelfPRODUCTS");
+        if(product != null) {
+            return Optional.of(product);
+        }
 
-        return Optional.ofNullable(productRepository.findProductById(productId));
+        Product product1= (productRepository.findProductById(productId));
+        redisTemplate.opsForHash().put(productId, "SelfPRODUCTS", product1);
+        return Optional.of(product1);
     }
 
     @Override
