@@ -32,13 +32,14 @@ public class SelfProductService implements ProductService {
     @Override
     public Page<Product> getProducts(String query, int numberOfProducts, int offset){
         // productRepository.executeQuery(select * from producst limit numberOfProducsts, offset offset)
-//        Page<Product> products = productRepository.findAll(
-//                PageRequest.of( offset/numberOfProducts,  numberOfProducts, Sort.Direction.valueOf("ASC"), query )
-//        );
-        Page<Product> products = productRepository.findAllByTitleContaining(
-                query,
-                PageRequest.of( offset/numberOfProducts,  numberOfProducts )
+        Page<Product> products = productRepository.findAll(
+                PageRequest.of( offset/numberOfProducts,  numberOfProducts, Sort.by("title")
+                        .descending().and(Sort.by("price").ascending()))
         );
+//        Page<Product> products = productRepository.findAllByTitleContaining(
+//                query,
+//                PageRequest.of( offset/numberOfProducts,  numberOfProducts )
+//        );
         return products;
     }
 
